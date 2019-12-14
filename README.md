@@ -1,24 +1,87 @@
-# NgxLoadingControl
+# NGX-Leaflet-Loading
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.14.
+This is a wrapper for the [leaflet.loading control](https://github.com/ebrelsford/Leaflet.loading) to make it easy to use in Angular 8+.
 
-## Code scaffolding
+This wrapper is tested against the [@asymmetrik/ngx-leaflet](https://github.com/Asymmetrik/ngx-leaflet) library but it has no dependency on that library so *should* work without it. It does, obviously, have a dependency that leaflet is loaded.
 
-Run `ng generate component component-name --project ngx-loading-control` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-loading-control`.
-> Note: Don't forget to add `--project ngx-loading-control` or else it will be added to the default project in your `angular.json` file. 
+for an example of this working - see [trackbash](https://trackbash.co.uk).
 
-## Build
+# Install
 
-Run `ng build ngx-loading-control` to build the project. The build artifacts will be stored in the `dist/` directory.
+Install using npm:
 
-## Publishing
+```
+npm install leaflet-loading
+npm install @runette/ngx-leaflet-loading
+```
 
-After building your library with `ng build ngx-loading-control`, go to the dist folder `cd dist/ngx-loading-control` and run `npm publish`.
+# Usage
 
-## Running unit tests
+This library needs to be imported into the application module:
 
-Run `ng test ngx-loading-control` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+import {NgxLoadingControlModule} from '@runette/ngx-leaflet-loading'
 
-## Further help
+imports: [
+    ...
+    NgxLoadingControlModule,
+  ],
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Then, the control is inserted using the following directive:
+
+```
+<leaflet-loading-control
+    [map]='...'
+    [options]="..."
+></leaflet-loading-control>
+```
+
+Where `map` is an instance of a leaflet map and `options` is an object with valid options for the control.
+
+# Usage with NGX-Leaflet
+
+This library integrates very easily with ngx-leaflet using the onMapReady event:
+
+```
+<div id='map' class="map-container" leaflet
+     [leafletOptions]="options"
+     (leafletMapReady)="onMapReady($event)"
+     ></div>
+<leaflet-loading-control
+    [map]='map'
+    [options]="loadingOptions"
+></leaflet-loading-control>
+```
+by adding the following to your map component:
+
+```
+...
+import { Map } from 'leaflet';
+
+
+export class OsmMapComponent implements OnInit, OnDestroy {
+  public map: Map;
+  public loadingOptions={
+    position: 'topleft',
+  }
+  
+  ...
+  
+  onMapReady(map: Map) {
+    this.map = map;
+  }
+```
+
+# Usage - CSS
+
+Unfortunately - I think because the leaflet map is run outside of Angular by ngx-leaflet - the normal css encapsulation does not work and you have to load the css globally.
+
+Add the following to the angular.json 
+
+```
+"styles": [
+              ...
+              "./node_modules/leaflet-loading/src/Control.Loading.css",
+            ],
+```
