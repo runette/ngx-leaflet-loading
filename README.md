@@ -85,3 +85,9 @@ Add the following to the angular.json
               "./node_modules/leaflet-loading/src/Control.Loading.css",
             ],
 ```
+
+# Build Config
+
+For some reason yet to be found - this library does not like being built with `"buildOptimizer": true,` in the build environment - which is usually the default for the production environment in `angular.json`.
+
+Always build with `"buildOptimizer": false,`.
