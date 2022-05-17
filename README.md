@@ -122,4 +122,3 @@ in the root folder of the repo. This creates an npm package in a folder called `
 When your changes are complete create a Pull Requet against the master. It is IMPORTANT that you change the version number in `package.json` AND the tag number in `.github/workflowds/build.yaml` to the next version before the PR.
 
 When I have accepted and merged the PR, Github actions will automatically build the new package release and loaded it both as a GH release using the version as the tag name and publish the new version on npm.
-
