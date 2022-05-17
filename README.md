@@ -61,12 +61,12 @@ by adding the following to your map component:
 
 ```
 ...
-import { Map } from 'leaflet';
+import { Map, LoadingOptions } from 'leaflet';
 
 
 export class OsmMapComponent implements OnInit, OnDestroy {
   public map?: Map;
-  public loadingOptions={
+  public loadingOptions: LoadingOptions={
     position: 'topleft',
   }
   
