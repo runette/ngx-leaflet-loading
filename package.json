@@ -1,6 +1,6 @@
 {
   "name": "@runette/ngx-leaflet-loading",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Paul Harwood",
   "description": "Angular wrapper for the Leaflet.loading control",
   "keywords": [
@@ -14,11 +14,14 @@
   "bugs": "https://github.com/runette/ngx-leaflet-loading",
   "licence": "MIT",
   "peerDependencies": {
-    "@angular/common": "^8.2.14",
-    "@angular/core": "^8.2.14"
+    "@angular/common": ">=12.0.0",
+    "@angular/core": ">=12.0.0"
   },
   "dependencies": {
-    "@types/leaflet-loading": "^0.1.0",
+    "@types/leaflet-loading": "^0.1.1",
     "leaflet-loading": "^0.1.24"
+  },
+  "scripts": {
+    "build:prod": "ng build ngx-leaflet-loading"
   }
 }
