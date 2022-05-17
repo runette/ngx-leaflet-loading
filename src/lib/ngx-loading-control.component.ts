@@ -1,7 +1,6 @@
-/// <reference path="../../../../node_modules/@types/leaflet-loading/index.d.ts" />
+/// <reference types='leaflet-loading' />
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import {Map, Control} from 'leaflet';
-import * as L from 'leaflet';
 import '../../../../node_modules/leaflet-loading/src/Control.Loading.js'
 
 @Component({
@@ -10,8 +9,8 @@ import '../../../../node_modules/leaflet-loading/src/Control.Loading.js'
 })
 export class NgxLoadingControlComponent implements OnInit, OnDestroy {
 
-  private _map: Map;
-  private loading: Control;
+  private _map?: Map;
+  private loading: Control.Loading = new Control();
 
   constructor() { }
 
@@ -19,22 +18,19 @@ export class NgxLoadingControlComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._map.removeControl(this.loading);
+    this._map?.removeControl(this.loading);
   }
 
   @Input() options: {[name:string]:any} = {};
 
-  @Input() set map(map: Map){
+  @Input() set map(map: Map | undefined){
     if (map) {
       this._map = map;
       this.loading = new Control.Loading(this.options);
       this.loading.addTo(map);
     }
   }
-  get map(): Map {
+  get map(): Map | undefined {
     return this._map
   }
-
-
-
 }
